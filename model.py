@@ -1,17 +1,17 @@
 from timm import create_model
 import torch.nn.functional as F
 import torch
+import lightning as L
 
 def get_model(cfg):
     model = create_model(cfg.model.name, pretrained=cfg.model.pretrained, num_classes=cfg.model.num_classes)
     return model
 
-import lightning as L
-
 class LitModel(L.LightningModule):
-    def __init__(self, model):
+    def __init__(self, cfg):
         super().__init__()
-        self.model = model
+        self.model = get_model(cfg)
+        self.cfg = cfg
 
     def forward(self, x):
         return self.model(x)
@@ -21,7 +21,6 @@ class LitModel(L.LightningModule):
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
         self.log('train_loss', loss, prog_bar=True, on_step=True, on_epoch=True)
-        # log the accuracy
         accuracy = (y_hat.argmax(dim=1) == y).float().mean()
         self.log('train_accuracy', accuracy, prog_bar=True, on_epoch=True)
         return loss
@@ -35,5 +34,5 @@ class LitModel(L.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.cfg.optimizer.lr)
         return optimizer
