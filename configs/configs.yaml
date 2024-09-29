@@ -1,3 +1,8 @@
+# check whether the training needed or inference needed
+mode: "train" # train or inference
+best_checkpoint_path: "checkpoints/best-checkpoint.ckpt"
+
+
 folder:
     dataset: "dataset"
     logs: "logs"
@@ -11,7 +16,7 @@ split_ratio:
 
 # dataloader config
 dataloader:
-    num_workers: 4
+    num_workers: 7
     pin_memory: true
     batch_size: 32
 
@@ -27,4 +32,9 @@ optimizer:
     lr: 0.001
     weight_decay: 0.0001
 
+trainer:
+    max_epochs: 3
+    precision: 16
+    accelerator: "mps"
+    devices: 1
 
