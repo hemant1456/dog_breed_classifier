@@ -2,7 +2,7 @@
 
 This project is a simple dog breed classifier using a pre-trained model. It uses the kaggle dataset of dog breeds and the resnet18 model.
 
-![Dog Breed Classifier](<Screenshot 2024-09-29 at 6.06.12 PM.png>)
+![Dog Breed Classifier](<app_screenshot.png>)
 
 ## Installation
 
