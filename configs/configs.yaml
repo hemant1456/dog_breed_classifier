@@ -1,0 +1,30 @@
+folder:
+    dataset: "dataset"
+    logs: "logs"
+    checkpoints: "checkpoints"
+
+# split ratio for train, val and test
+split_ratio:
+    train: 0.8
+    val: 0.1
+    test: 0.1
+
+# dataloader config
+dataloader:
+    num_workers: 4
+    pin_memory: true
+    batch_size: 32
+
+# model config
+model:
+    name: "resnet18"
+    pretrained: true
+    num_classes: 10
+
+# optimizer config
+optimizer:
+    name: "adam"
+    lr: 0.001
+    weight_decay: 0.0001
+
+
